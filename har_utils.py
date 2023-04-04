@@ -23,6 +23,9 @@ def index_kertosis(arr, start, end):
 def index_variation(arr, start, end):
     return stats.variation(arr[start:end])
 
+def index_mode(arr, start, end):
+    return stats.mode(arr[start:end], axis=None).mode[0]
+
 ###
 # Signal Processing
 ###
