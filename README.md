@@ -19,4 +19,15 @@ movement components of our data by applying a Butterworth filter.
 4 We will calculate these
 statistics across every 5 second interval in the data, as was done by Ustad et al. We will use
 principal component analysis to reduce the dimension of the feature space. After the
-pre-processing, we will test several models, such as k-nearest neighbors, random forests, and
+pre-processing, we will test several models, such as k-nearest neighbors, random forests, and support vector machines. We will also test the extreme gradient boost model to remain consistent
+with Ustad et al’s procedure. We will assess the quality of a machine learning procedure by
+examining its accuracy and F1 score. In doing so, we will determine whether a more precise
+model can be created to perform HAR in elderly individuals.
+
+
+Bibliography:
+1. https://www.mdpi.com/1424-8220/21/23/7853
+2. https://www.mdpi.com/1424-8220/23/5/2368
+3. https://archive-beta.ics.uci.edu/dataset/780/har70 for the dataset we will be using
+4. https://journals.lww.com/acsm-msse/Fulltext/2018/12000/A_Dual_Accelerometer_System_for_Classifying.25.aspx
+5. See footnote 3.
