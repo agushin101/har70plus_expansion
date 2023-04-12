@@ -26,6 +26,19 @@ def index_variation(arr, start, end):
 def index_mode(arr, start, end):
     return stats.mode(arr[start:end], axis=None).mode[0]
 
+def index_variation(arr, start, end):
+    return stats.variation(arr[start:end])
+
+def index_quantiles(arr, start, end):
+    sub = arr[start:end]
+    minimum = np.amin(sub)
+    first = np.quantile(sub, .25)
+    med = np.quantile(sub, .5)
+    third = np.quantile(sub, .75)
+    maximum = np.amax(sub)
+    return minimum, first, med, third, maximum
+    
+
 ###
 # Signal Processing
 ###
@@ -40,6 +53,3 @@ def extract_gravity_movement(arr, start, end):
     mov = np.subtract(subarr, grav)
 
     return grav, mov
-
-
-

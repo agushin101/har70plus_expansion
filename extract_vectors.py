@@ -12,6 +12,11 @@ def main():
         labels = df['label']
         new_df = pd.DataFrame()
 
+        back_mag = np.sqrt((df['back_x'] * df['back_x']) + (df['back_y'] * df['back_y']) + (df['back_z'] * df['back_z']))
+        thigh_mag = np.sqrt((df['thigh_x'] * df['thigh_x']) + (df['thigh_y'] * df['thigh_y']) + (df['thigh_z'] * df['thigh_z']))
+        new_df['back_mag'] = back_mag
+        new_df['thigh_mag'] = thigh_mag
+
         for col in df:
             start = 0
             end = len(labels)
@@ -20,6 +25,7 @@ def main():
         
             grav, mov = extract_gravity_movement(df[col], start, end)
             fy = fft(mov.values)
+            fy = (2 * np.abs(fy)) / len(fy)
             fx = fftfreq(len(fy), 1/sample_freq)
             new_df[col + "_grav"] = grav
             new_df[col + "_mov"] = mov
