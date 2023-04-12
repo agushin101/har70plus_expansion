@@ -7,15 +7,10 @@ from scipy.fft import fft, fftfreq
 def main():
     sample_freq = 50 #50 Hz
     for i in range(1, 19):
-        filename = "dataset/" + str(i) + ".csv"
+        filename = "processing/magnitude" + str(i) + "_m.csv"
         df = pd.read_csv(filename)
         labels = df['label']
         new_df = pd.DataFrame()
-
-        back_mag = np.sqrt((df['back_x'] * df['back_x']) + (df['back_y'] * df['back_y']) + (df['back_z'] * df['back_z']))
-        thigh_mag = np.sqrt((df['thigh_x'] * df['thigh_x']) + (df['thigh_y'] * df['thigh_y']) + (df['thigh_z'] * df['thigh_z']))
-        new_df['back_mag'] = back_mag
-        new_df['thigh_mag'] = thigh_mag
 
         for col in df:
             start = 0
@@ -32,7 +27,7 @@ def main():
             new_df[col + "_freq_mag"] = fx
             new_df[col + "_freq_pow"] = fy
         new_df['label'] = labels
-        new_df.to_csv("transformed/" + str(i) + "_split.csv", index=False)
+        new_df.to_csv("processing/grav_fft" + str(i) + "_gf.csv", index=False)
 
 if __name__ == "__main__":
     main()
