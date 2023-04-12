@@ -11,6 +11,7 @@ def main():
         filename = "dataset/" + str(i) + ".csv"
         df = pd.read_csv(filename)
         new_df = pd.DataFrame()
+        labels = pd.DataFrame()
 
         back_mag = np.sqrt((df['back_x'] * df['back_x']) + (df['back_y'] * df['back_y']) + (df['back_z'] * df['back_z']))
         thigh_mag = np.sqrt((df['thigh_x'] * df['thigh_x']) + (df['thigh_y'] * df['thigh_y']) + (df['thigh_z'] * df['thigh_z']))
@@ -25,8 +26,9 @@ def main():
         new_df['thigh_z'] = df['thigh_z']
         new_df['thigh_mag'] = thigh_mag
         
-        new_df['label'] = df['label']
+        labels['label'] = df['label']
         new_df.to_csv("processing/magnitude/" + str(i) + "_m.csv", index=False)
+        labels.to_csv("processing/labels/" + str(i) + "_y.csv", index=False)
 
 if __name__ == "__main__":
     main()

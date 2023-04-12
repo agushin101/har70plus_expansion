@@ -4,39 +4,65 @@ import pandas as pd
 
 spacing = 250
 
-def extract(outfile, df, labels):
+def process_grav(df):
     new_df = pd.DataFrame()
     for col in df:
         start = 0
         end = spacing
-        if col == 'timestamp' or col == 'label':
-            continue
+        
         means = []
         stdevs = []
-        skews = []
-        kert = []
-        labels_new = []
-        while end < len(labels):
+        medians = []
+        variations = []
+        first_quart = []
+        third_quart = []
+        minimums = []
+        maximums = []
+        
+        while end < len(df):
             means.append(index_avg(df[col], start, end))
             stdevs.append(index_stdev(df[col], start, end))
-            skews.append(index_skew(df[col], start, end))
-            kert.append(index_kertosis(df[col], start, end))
-            labels_new.append(index_mode(df['label'], start, end))
+            variations.append(index_variation(df[col], start, end))
+
+            minimum, first, med, third, maximum = index_quantiles(df[col], start, end)
+
+            minimums.append(minimum)
+            first_quart.append(first)
+            medians.append(med)
+            third_quart.append(third)
+            maximums.append(maximum)
+            
             start += spacing
             end += spacing
+            
         new_df[col + "_mean"] = means
+        new_df[col + "_median"] = medians
         new_df[col + "_stdev"] = stdevs
-        new_df[col + "_skew"] = skews
-        new_df[col + "_kertosis"] = kert
-    new_df['label'] = labels_new
-    new_df.to_csv(outfile, index=False)        
+        new_df[col + "_variation"] = variations
+        new_df[col + "_25th_percent"] = first_quart
+        new_df[col + "_75th_percent"] = third_quart
+        new_df[col + "_minimum"] = minimums
+        new_df[col + "_maximum"] = maximums
         
+    return new_df
+
+def process_mov(df):
+    return None
+
+def process_labels(df):
+    return None
     
 def main():
-    filename = "dataset/1.csv"
-    df = pd.read_csv(filename)
-    labels = df['label']
-    extract("out.csv", df, labels)
+    for i in range(1, 19):
+        grav = pd.read_csv("processing/grav_mov/" + str(i) + "_grav.csv")
+        mov = pd.read_csv("processing/grav_mov/" + str(i) + "_mov.csv")
+        labels = pd.read_csv("processing/labels/" + str(i) + "_y.csv")
+
+        grav_df = process_grav(grav)
+
+        grav_df.to_csv("processing/" + str(i) + ".csv", index=False)
+
+        
         
 if __name__ == "__main__":
     main()
