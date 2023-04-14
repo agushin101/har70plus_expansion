@@ -5,6 +5,3 @@
 
 #Python compilation
 __pycache__/
-
-#Big datasets
-processing/

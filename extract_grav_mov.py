@@ -10,6 +10,7 @@ def main():
         filename = "processing/magnitude/" + str(i) + "_m.csv"
         df = pd.read_csv(filename)
         new_df_mov = pd.DataFrame()
+        new_df_fft = pd.DataFrame()
         new_df_grav = pd.DataFrame()
 
         for col in df:
@@ -24,9 +25,10 @@ def main():
             
             new_df_grav[col + "_grav"] = grav
             new_df_mov[col + "_mov"] = mov
-            new_df_mov[col + "_freq_mag"] = fx
-            new_df_mov[col + "_freq_pow"] = fy
+            new_df_fft[col + "_freq_mag"] = fx
+            new_df_fft[col + "_freq_pow"] = fy
         new_df_mov.to_csv("processing/grav_mov/" + str(i) + "_mov.csv", index=False)
+        new_df_fft.to_csv("processing/grav_mov/" + str(i) + "_fft.csv", index=False)
         new_df_grav.to_csv("processing/grav_mov/" + str(i) + "_grav.csv", index=False)
 
 if __name__ == "__main__":

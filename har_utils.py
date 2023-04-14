@@ -17,7 +17,7 @@ def index_stdev(arr, start, end):
 def index_skew(arr, start, end):
     return stats.skew(arr[start:end])
 
-def index_kertosis(arr, start, end):
+def index_kurtosis(arr, start, end):
     return stats.kurtosis(arr[start:end])
 
 def index_variation(arr, start, end):
@@ -53,3 +53,20 @@ def extract_gravity_movement(arr, start, end):
     mov = np.subtract(subarr, grav)
 
     return grav, mov
+
+def signal_energy(arr, start, end):
+    sub = arr[start:end]
+    return (np.sum(sub**2)) / len(sub)
+
+def signal_power(arr, start, end):
+    sub = arr[start:end]
+    power_density = (sub**2) / (len(sub)**2)
+    return np.sum(power_density)
+
+def extract_dom(freqs, mags, start, end):
+    freqs = freqs[start:end]
+    mags = mags[start:end]
+
+    dom = np.argmax(mags)
+
+    return freqs.iloc[dom], mags.iloc[dom]
