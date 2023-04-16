@@ -60,17 +60,15 @@ def plot_gridsearch(grid_search):
 
 if __name__ == "__main__":
     #loading datasets as a dataframe
-    df_features = pd.read_csv('processing/features/1.csv')
+    df_features = pd.read_csv('x.csv')
     #df_labels = pd.read_csv('processing/labels/1_y.csv')
-    df_labels = pd.read_csv('processing/final_labels/1yf.csv')
+    df_labels = pd.read_csv('y.csv')['label']
 
     #print(df_features.shape)
     #print(df_labels.shape)
 
-    #setting seed value for reproducibility
-    seed_value = 124
 
     #dataset split into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(df_features, df_labels, test_size=0.2, random_state=seed_value)#0.4)
+    X_train, X_test, y_train, y_test = train_test_split(df_features, df_labels, test_size=0.3)
     knn_gridsearch(X_train, y_train, X_test, y_test)
 
