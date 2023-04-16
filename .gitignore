@@ -5,3 +5,6 @@
 
 #Python compilation
 __pycache__/
+
+#Ignore datasets
+*.csv
