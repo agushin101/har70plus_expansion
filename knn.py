@@ -22,7 +22,7 @@ def knn_gridsearch(X_train, y_train, X_test, y_test):
     param_grid = {'n_neighbors': k_values}
 
     #GridSearchCV object created
-    grid_search = GridSearchCV(knn, param_grid, cv=5)
+    grid_search = GridSearchCV(knn, param_grid, cv=5, scoring='f1_micro')
 
     #GridSearchCV object fit to the scaled training data
     grid_search.fit(X_train_scaled, y_train)
@@ -53,7 +53,7 @@ def plot_gridsearch(grid_search):
     mean_scores = grid_search.cv_results_['mean_test_score']
     plt.plot(k_values, mean_scores)
     plt.xlabel('K Value')
-    plt.ylabel('Mean Test Score')
+    plt.ylabel('F1 Score')
     plt.title('KNN Parameter Optimization')
     plt.show()
 
