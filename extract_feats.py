@@ -20,11 +20,15 @@ def process_grav(df):
         third_quart = []
         minimums = []
         maximums = []
+        skew = []
+        kurtosis = []
         
         while end < len(df):
             means.append(index_avg(df[col], start, end))
             stdevs.append(index_stdev(df[col], start, end))
             variations.append(index_variation(df[col], start, end))
+            skew.append(index_skew(df[col], start, end))
+            kurtosis.append(index_kurtosis(df[col], start, end))
 
             minimum, first, med, third, maximum = index_quantiles(df[col], start, end)
 
@@ -45,7 +49,27 @@ def process_grav(df):
         new_df[col + "_75th_percent"] = third_quart
         new_df[col + "_minimum"] = minimums
         new_df[col + "_maximum"] = maximums
+        new_df[col + "_skew"] = skew
+        new_df[col + "_kurtosis"] = kurtosis
+
+        prefixes_back = ['back_x', 'back_y', 'back_z', 'back_mag']
+        prefixes_thigh = ['thigh_x', 'thigh_y', 'thigh_z', 'thigh_mag']
         
+        for back_pref in prefixes_back:
+            for thigh_pref in prefixes_thigh:
+                start = 0
+                end = spacing
+                new_col = back_pref + "_" + thigh_pref + "_grav_mean"
+                back = df[back_pref + "_grav"]
+                thigh = df[thigh_pref + "_grav"]
+                combined = pd.concat([back, thigh])
+                data = []
+                while end < len(df):
+                    data.append(index_avg(combined, start, end))
+                    start += spacing
+                    end += spacing
+                new_df[new_col] = data
+                
     return new_df
 
 def process_mov(df):
@@ -55,12 +79,29 @@ def process_mov(df):
         end = spacing
 
         #Features to be extracted
-
+        means = []
+        stdevs = []
+        variations = []
         skew = []
         kurtosis = []
+        first_quart = []
+        medians = []
+        third_quart = []
+        minimums = []
+        maximums = []
         sig_en = []
 
         while end < len(df):
+            means.append(index_avg(df[col], start, end))
+            stdevs.append(index_stdev(df[col], start, end))
+            variations.append(index_variation(df[col], start, end))
+            minimum, first, med, third, maximum = index_quantiles(df[col], start, end)
+
+            minimums.append(minimum)
+            first_quart.append(first)
+            medians.append(med)
+            third_quart.append(third)
+            maximums.append(maximum)
             skew.append(index_skew(df[col], start, end))
             kurtosis.append(index_kurtosis(df[col], start, end))
             sig_en.append(signal_energy(df[col], start, end))
@@ -71,6 +112,14 @@ def process_mov(df):
         new_df[col + "_skew"] = skew
         new_df[col + "_kurtosis"] = kurtosis
         new_df[col + "_sig_en"] = sig_en
+        new_df[col + "_25th_percent"] = first_quart
+        new_df[col + "_75th_percent"] = third_quart
+        new_df[col + "_minimum"] = minimums
+        new_df[col + "_maximum"] = maximums
+        new_df[col + "_mean"] = means
+        new_df[col + "_median"] = medians
+        new_df[col + "_stdev"] = stdevs
+        new_df[col + "_variation"] = variations
 
     return new_df
 

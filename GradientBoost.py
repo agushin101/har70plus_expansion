@@ -4,6 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from matplotlib.colors import ListedColormap
 from sklearn.metrics import confusion_matrix, accuracy_score, roc_auc_score
+from sklearn import metrics
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
@@ -17,8 +18,8 @@ import numpy as np
 def main():
 
 #reading the datasets 
-    df_features = pd.read_csv('processing/x.csv')
-    df_labels = pd.read_csv('processing/y.csv')
+    df_features = pd.read_csv('x.csv')
+    df_labels = pd.read_csv('y.csv')
 
     # Train test split using sklearn
     

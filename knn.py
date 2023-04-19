@@ -4,6 +4,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
 
 def knn_gridsearch(X_train, y_train, X_test, y_test):
@@ -63,12 +64,14 @@ if __name__ == "__main__":
     df_features = pd.read_csv('x.csv')
     #df_labels = pd.read_csv('processing/labels/1_y.csv')
     df_labels = pd.read_csv('y.csv')['label']
+    encoder = LabelEncoder()
+    df_labels = encoder.fit_transform(df_labels)
 
     #print(df_features.shape)
     #print(df_labels.shape)
 
 
     #dataset split into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(df_features, df_labels, test_size=0.3)
+    X_train, X_test, y_train, y_test = train_test_split(df_features, df_labels, test_size=0.2)
     knn_gridsearch(X_train, y_train, X_test, y_test)
 

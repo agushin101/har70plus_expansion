@@ -21,8 +21,8 @@ import numpy as np
 def main():
 
 #reading the datasets 
-    df_features = pd.read_csv('processing/x.csv')
-    df_labels = pd.read_csv('processing/y.csv')
+    df_features = pd.read_csv('x.csv')
+    df_labels = pd.read_csv('y.csv')
 
     # Train test split using sklearn
     
