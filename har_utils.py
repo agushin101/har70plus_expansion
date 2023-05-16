@@ -56,11 +56,11 @@ def extract_gravity_movement(arr, start, end):
 
 def signal_energy(arr, start, end):
     sub = arr[start:end]
-    return (np.sum(sub**2)) / len(sub)
+    return (np.sum(sub**2))
 
 def signal_power(arr, start, end):
     sub = arr[start:end]
-    power_density = (sub**2) / (len(sub)**2)
+    power_density = (sub**2) / (len(sub))
     return np.sum(power_density)
 
 def extract_dom(freqs, mags, start, end):
