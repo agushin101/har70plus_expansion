@@ -12,11 +12,6 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import StratifiedKFold
 from sklearn.decomposition import PCA
 
-#Optimal Estimators: 1400
-#Optimal Depth: 16
-#Optimal Eta: 0.01
-#Best accuracy: 1.0
-
 def optimize():
     x = pd.read_csv('x.csv')
     y = pd.read_csv('y.csv')['label']
